@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<h2>Usuarios</h2>
+<p>@Url.Content("~/Usuario/ListaUsuarios")'</p>
+<script>
+    $(document).ready(function () {
+        console.log("ready")
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/Usuario/ListaUsuarios")',
+            success: function (res) {
+                console.log(res);
+            }
+
+        });
+    });
+
+</script>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E0AABB1-1047-4B6C-B9E2-10F12C75379B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SISAP.Core</RootNamespace>
+    <AssemblyName>SISAP.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Categoria.cs" />
+    <Compile Include="Entities\Ciclos.cs" />
+    <Compile Include="Entities\Cliente.cs" />
+    <Compile Include="Entities\ConsumoServicio.cs" />
+    <Compile Include="Entities\DetalleEstadoPago.cs" />
+    <Compile Include="Entities\DetalleFactura.cs" />
+    <Compile Include="Entities\Direccion.cs" />
+    <Compile Include="Entities\DireccionDato.cs" />
+    <Compile Include="Entities\Estado.cs" />
+    <Compile Include="Entities\EstadoPago.cs" />
+    <Compile Include="Entities\EstadoServicio.cs" />
+    <Compile Include="Entities\Factura.cs" />
+    <Compile Include="Entities\Facturacion.cs" />
+    <Compile Include="Entities\Lectura.cs" />
+    <Compile Include="Entities\Manzana.cs" />
+    <Compile Include="Entities\Medidor.cs" />
+    <Compile Include="Entities\Meses.cs" />
+    <Compile Include="Entities\Opcion.cs" />
+    <Compile Include="Entities\OpcionUsuario.cs" />
+    <Compile Include="Entities\Pago.cs" />
+    <Compile Include="Entities\Servicio.cs" />
+    <Compile Include="Entities\Tarifario.cs" />
+    <Compile Include="Entities\TipoCategoria.cs" />
+    <Compile Include="Entities\UpdateLectura.cs" />
+    <Compile Include="Entities\UpdateLecturaProcess.cs" />
+    <Compile Include="Entities\Urbanizacion.cs" />
+    <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\ValidateLectura.cs" />
+    <Compile Include="Enum\Enums.cs" />
+    <Compile Include="Interfaces\ICategoriaService.cs" />
+    <Compile Include="Interfaces\ICiclosService.cs" />
+    <Compile Include="Interfaces\IConsumoServicioService.cs" />
+    <Compile Include="Interfaces\IDetalleEstadoPagoService.cs" />
+    <Compile Include="Interfaces\IDetalleFacturaService.cs" />
+    <Compile Include="Interfaces\IDireccionDatoService.cs" />
+    <Compile Include="Interfaces\IDireccionService.cs" />
+    <Compile Include="Interfaces\IEstadoPagoService.cs" />
+    <Compile Include="Interfaces\IEstadoService.cs" />
+    <Compile Include="Interfaces\IFacturaService.cs" />
+    <Compile Include="Interfaces\ILecturaService.cs" />
+    <Compile Include="Interfaces\ILoginService.cs" />
+    <Compile Include="Interfaces\IClienteService.cs" />
+    <Compile Include="Interfaces\IMedidorService.cs" />
+    <Compile Include="Interfaces\IPagoService.cs" />
+    <Compile Include="Interfaces\IReportesService.cs" />
+    <Compile Include="Interfaces\ITarifarioService.cs" />
+    <Compile Include="Interfaces\IUrbanizacionService.cs" />
+    <Compile Include="Interfaces\IUsuarioService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

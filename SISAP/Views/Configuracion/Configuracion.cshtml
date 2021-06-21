@@ -1,0 +1,336 @@
+﻿
+@{
+    ViewBag.Title = "Configuracion";
+}
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalCenterTitle">Crear Urbanizacion</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-sm-12mb-12">
+                    <label>Nombre </label>
+                    <input id="txtNombreUsuario" type="text" class="form-control" placeholder="">
+                    <input hidden id="txtUsuarioId" type="text" class="form-control" placeholder="">
+                </div>
+
+
+                <div class="col-sm-12mb-12">
+                    <label>Usuario </label>
+                    <input id="txtUsuario" type="text" class="form-control" placeholder="">
+                    <input hidden id="txtUsuarioId" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-12mb-12">
+                    <label>Contraseña </label>
+                    <input id="txtContraseñaUsuario" type="password" class="form-control" placeholder="">
+                    <input hidden id="txtUsuarioId" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-12mb-12">
+                    <label>Rol </label>
+                    <input id="txtRolUsuario" type="number" class="form-control" placeholder="">
+                    <input hidden id="txtUsuarioId" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-12mb-12">
+                    <label>Estado </label>
+                    <input id="txtEstadoUsuario" type="number" class="form-control" placeholder="">
+                    <input hidden id="txtUsuarioId" type="text" class="form-control" placeholder="">
+                </div>
+
+
+            </div>
+            <br />
+            <div class="modal-footer p-1">
+                <label id="MSGvalidacion" class=" text-danger" style="display:none">Debe LLenar todos los campos</label>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button style="display:none;" class="btn btn-success btn-sm" id="btnSave" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                <button style="display:none;" class="btn btn-success btn-sm" id="btnUpdate" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Usuarios</i></h5>
+        </div>
+
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex justify-content-start mb-2">
+                    <button id="openModal" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(0)"><i class="fas fa-plus"></i> Registrar</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="searchbar">
+                        <input class="search_input" type="text" id="txtFilter" name="" placeholder="Buscar...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-sm table-striped table-responsive-sm" id="allGrilla">
+            <thead>
+                <tr class="bg-info text-light">
+                    <th scope="col">N</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Contraseña</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    var tabla;
+    $(document).ready(function () {
+
+        $("#openModal").on('click', function () {
+            console.log("siii")
+            $("#MSGvalidacion").hide();
+            $("#btnSave").show();
+            $("#btnUpdate").hide();
+            Clean();
+        })
+
+
+        $("#btnSave").click(Save);
+        $("#btnUpdate").click(Update);
+
+        tabla = $('#allGrilla').DataTable({
+            "dom": 'Bfrtip',
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Usuario/ListarUsuarios")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+
+                        Nombre: $("#txtFilter").val() == "" ? null : $("#txtFilter").val(),
+
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data": "UsuarioId" },
+                { "data": "Nombre"},
+                { "data": "usuario" },
+                { "data": "Password" },
+                { "data": "Rol" },
+                {"data": "Estado"},
+                {
+                    "data": "id",  "render": function(data, type, row, meta) {
+                        return "<i class='text-warning far fa-edit mr-3' onClick='Edit(" + JSON.stringify(row) + ")'></i> </a>" +
+                            "<i class='text-danger fas fa-trash-alt mr-3' onClick='Delete(" + JSON.stringify(row) + ")'></i>"
+                            //"<i class='text-warning fas fa-lightbulb ' onClick='StatusUpdate(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+            ]
+        });
+
+        tabla.draw();
+
+        $("#txtFilter").bind("keyup change", function () {
+            tabla.draw();
+        })
+    })
+
+    function Save() {
+
+        if ($('#txtNombreUsuario').val() == "" || $('#txtUsuario').val() == "" || $('#txtContraseñaUsuario').val() == "" || $('#txtRolUsuario').val() == "" || $('#txtEstadoUsuario').val() == "") {
+            $("#MSGvalidacion").show();
+
+            return false;
+        }
+
+        var objUsuario = {};
+        objUsuario.Nombre = $("#txtNombreUsuario").val();
+        objUsuario.usuario = $("#txtUsuario").val();
+        objUsuario.Password = $("#txtContraseñaUsuario").val();
+        objUsuario.Rol = $("#txtRolUsuario").val();
+        objUsuario.Estado = $("#txtEstadoUsuario").val();
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Tu trabajo ha sido guardado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        $.ajax({
+
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Usuario/RegistrarUsuario")',
+            dataType: "json",
+            data: JSON.stringify({
+                objUsuario: objUsuario
+            }),
+            success: function (resp) {
+                tabla.draw();
+            }
+        });
+        Clean();
+
+    }
+
+    function Edit(dUsuario) {
+
+        $("#MSGvalidacion").hide();
+        $("#btnSave").hide();
+        $("#btnUpdate").show();
+        $("#exampleModalCenter").modal('show');
+
+        $("#txtUsuarioId").val(dUsuario.UsuarioId);
+        $("#txtNombreUsuario").val(dUsuario.Nombre);
+        $("#txtUsuario").val(dUsuario.usuario);
+        $("#txtContraseñaUsuario").val(dUsuario.Password);
+        $("#txtRolUsuario").val(dUsuario.Rol);
+        $("#txtEstadoUsuario").val(dUsuario.Estado);
+
+
+    }
+
+    function Update() {
+        var objUsuario = {};
+
+        objUsuario.UsuarioId = $("#txtUsuarioId").val();
+        objUsuario.usuario = $("#txtUsuario").val();
+        objUsuario.Nombre = $("#txtNombreUsuario").val();
+        objUsuario.Password = $("#txtContraseñaUsuario").val();
+        objUsuario.Rol = $("#txtRolUsuario").val();
+        objUsuario.Estado = $("#txtEstadoUsuario").val();
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Tu trabajo ha sido Actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        $.ajax({
+
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Usuario/Update")',
+            dataType: "json",
+            data: JSON.stringify({
+                objUsuario: objUsuario
+            }),
+            success: function (resp) {
+                tabla.draw();
+            }
+        });
+        Clean();
+    }
+
+    @*function Delete(dUsuario) {
+
+
+
+        var data = { UsuarioId: dUsuario.UsuarioId };
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Usuario/Delete")',
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function () {
+                tabla.draw();
+                console.log("eliminado");
+            }
+        });
+    }*@
+
+    const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+    })
+    function Delete(dUsuario) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estas Seguro?',
+            text: "No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                     var data = { UsuarioId: dUsuario.UsuarioId };
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Usuario/Delete")',
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function () {
+                tabla.draw();
+                console.log("eliminado");
+            }
+        });
+                swalWithBootstrapButtons.fire(
+                    'Eliminado!',
+                    'Usuario a sido eliminado.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu archivo imaginario está seguro : )',
+                    'error'
+                )
+            }
+        })
+    }
+
+
+    function Clean() {
+        $("#txtNombreUsuario").val("");
+        $("#txtUsuario").val("");
+        $("#txtContraseñaUsuario").val("");
+        $("#txtRolUsuario").val("");
+        $("#txtEstadoUsuario").val("");
+    }
+
+</script>
+
+

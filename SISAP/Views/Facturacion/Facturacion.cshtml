@@ -1,0 +1,360 @@
+﻿@{
+    ViewBag.Title = "Facturacion";
+}
+<!--Modal Historial Recibo-->
+<div class="modal fixed-right fade fuente" id="modal_aside_right" tabindex="-1" role="dialog" aria-labelledby="EjemploModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside" role="document">
+        <div class="modal-content" id="form">
+            <div class="modal-body mt-4">
+                <div class="card-header">
+                    <h4 class="text-center">Hisorial Lecturas</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Codigo</label>
+                                <input disabled type="text" id="txtCodigo" class="form-control" placeholder="">
+                                <input hidden type="text" id="txtClienteId" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Nombre</label>
+                                <input disabled type="text" id="txtNombre" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Direccion</label>
+                                <input disabled type="text" id="txtDireccion" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Servicio</label>
+                                <input disabled type="text" id="txtServicio" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Tarifa</label>
+                                <input disabled type="text" id="txtTarifa" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Medidor</label>
+                                <input disabled type="text" id="txtMedidor" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <div class="table-responsive mt-3">
+                        <table class="table table-sm  table-striped table-responsive-sm" id="allGrillaDetalle">
+                            <thead>
+                                <tr class="bg-info text-light">
+                                    <th scope="col">Annio</th>
+                                    <th scope="col">Mes</th>
+                                    <th scope="col">Total a Pagar</th>
+                                    <th scope="col">Nro Boleta</th>
+                                    <th scope="col">Periodo</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Historial Recibo.// -->
+
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Facturación</i></h5>
+        </div>
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="row  col-6">
+                <div class="col-sm-3 mb-3">
+                    <label>Año</label>
+                    <select id="ddAnnio" class="form-control form-control-sm ">
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3 ">
+                    <label>Mes</label>
+                    <select id="ddMes" class="form-control form-control-sm">
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3 ">
+                    <label>Ruta</label>
+                    <select id="ddUrbanizacion" class="form-control form-control-sm ">
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-end mt-2">
+                    <div class="searchbar mr-4 mt-2">
+                        <input class="search_input" type="text" id="txtFilter" name="" placeholder="Buscar...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                  
+                    <button  type="button"  class="btn btn-info btn-sm mt-2"><i class="fas fa-print"></i>  Masivo</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-sm  table-striped table-responsive-sm" id="allGrilla">
+                <thead>
+                    <tr class="bg-info text-light">
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Medidor</th>
+                        <th scope="col">Lec. Anterior</th>
+                        <th scope="col">lec. Actual</th>
+                        <th scope="col">Consumo</th>
+                        <th scope="col">Total a Pagar</th>
+                        <th scope="col">Periodo</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var tabla;
+    var tabla2;
+
+    $(document).ready(function () {
+        $("#ddAnnio").change(function () {
+            ListaddMeses();
+        });
+        ListarAnnio();
+        ListaddMeses();
+        ListUrbanizacion();
+        $(document).on('change', '#ddAnnio, #ddMes, #ddUrbanizacion', function () {
+
+            if ($("#ddAnnio").val() > 0 && $("#ddMes").val() > 0 && $("#ddUrbanizacion").val() > 0) {
+                ListarFacturacion();
+            }
+        });
+    });
+
+    function ListarFacturacion() {
+
+        tabla = $('#allGrilla').DataTable({
+            "destroy": true,
+            "dom": 'Bfrtip',
+            //"bPaginate": false,
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Facturacion/ListMainFactura")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+
+                        Annio: $("#ddAnnio").val() == "" ? null : $("#ddAnnio").val(),
+                        Mes: $("#ddMes").val() == "" ? null : $("#ddMes").val(),
+                        UrbanizacionId: $("#ddUrbanizacion").val() == "" ? null : $("#ddUrbanizacion").val(),
+                        FilterNombre: $("#txtFilter").val() == "" ? null : $("#txtFilter").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"NombreCompleto" },
+                { "data":"DireccionStr" },
+                { "data":"NumeroMedidor" },
+                { "data":"CantidadLecturaAntigua" },
+                { "data":"CantidadLectura" },
+                { "data":"Consumo" },
+                { "data": "TotalPagar", "sClass": "font-weight-bold" },
+                { "data":"Periodo" },
+                {
+                    "data": "id", "render": function (data, type, row, meta) {
+                        return "<i class='text-center text-warning fas fa-print mr-3' onClick='Print(" + JSON.stringify(row) + ")'></i> </a>"+
+                            "<i class='text-success fab fa-readme mr-3' onClick='Read(" + JSON.stringify(row) + ")'></i>"
+                        //"<i class='text-warning fas fa-lightbulb ' onClick='StatusUpdate(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+
+            ]
+        });
+
+        tabla.draw();
+        $("#txtFilter").bind("keyup change", function () {
+            tabla.draw();
+        })
+    }
+
+    function Print() {
+
+    }
+    function Read(dCliente) {
+
+        $("#modal_aside_right").modal('show');
+
+        $("#txtClienteId").val(dCliente.ClienteId);
+        $("#txtCodigo").val(dCliente.CodigoCliente);
+        $("#txtNombre").val(dCliente.NombreCompleto);
+        $("#txtDireccion").val(dCliente.DireccionStr);
+        $("#txtServicio").val(dCliente.ServicioNombre);
+        $("#txtTarifa").val(dCliente.TipoCategoria);
+        $("#txtMedidor").val(dCliente.NumeroMedidor);
+
+        ListHLecturas();
+    }
+
+    function ListHLecturas() {
+        tabla2 = $('#allGrillaDetalle').DataTable({
+            "destroy": true,
+            "dom": 'Bfrtip',
+            //"bPaginate": false,
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Facturacion/ListDetalleFacturacion")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        ClienteId: $("#txtClienteId").val() == "" ? null : $("#txtClienteId").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"Annio" },
+                { "data":"Mes" },
+                { "data": "TotalPagar", "sClass": "font-weight-bold" },
+                { "data":"NroBoleta" },
+                { "data":"Periodo" },
+            ]
+        });
+
+        tabla2.draw();
+        /*$("#txtFilter").bind("keyup change", function () {
+            tabla2.draw();
+        })*/
+    }
+
+    function ListarAnnio() {
+        var comboAnnio = $("#ddAnnio");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListAnnio")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboAnnio.html('');
+                    comboAnnio.append($("<option />").val("").text('--Seleccione--'));
+                    $.each(data, function () {
+                        comboAnnio.append($("<option />").val(this.Value).text(this.Text));
+                    })
+                }
+            }
+        });
+    }
+
+    function ListaddMeses() {
+        var comboMes = $("#ddMes");
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Common/ListMes")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val() }),
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboMes.html('');
+                    comboMes.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboMes.append($("<option />").val(this.Value).text(this.Text));
+                    });
+
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+    }
+
+    function ListUrbanizacion() {
+        var comboUrbanizacion = $("#ddUrbanizacion");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListarUrbanizacion")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboUrbanizacion.html('');
+                    comboUrbanizacion.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboUrbanizacion.append($("<option />").val(this.UrbanizacionId).text(this.NombreUrbanizacion));
+                    })
+                }
+            }
+        });
+    }
+
+    function ClenaCombo() {
+
+        $("#ddAnnio").val('');
+        $("#ddMes").val('');
+        $("#ddUrbanizacion").val('');
+    }
+    function Clena() {
+        $("#txtClienteId").val("");
+        $("#txtCodigo").val("");
+        $("#txtNombre").val("");
+        $("#txtDireccion").val("");
+        $("#txtServicio").val("");
+        $("#txtTarifa").val("");
+        $("#txtMedidor").val("");
+    }
+</script>

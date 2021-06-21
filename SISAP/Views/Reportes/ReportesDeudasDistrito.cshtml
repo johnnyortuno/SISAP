@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Reportes";
+}
+
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <h5>Reporte de deudores por mes</h5>
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="row  col-6">
+                <div class="col-sm-3 mb-3">
+                    <label>Año</label>
+                    <select class="form-control p-2 bg-info order-3">
+
+                        <option>2020</option>
+                        <option>2021</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3 ">
+                    <label>Mes</label>
+                    <select class="form-control p-2 bg-info order-3">
+                        <option>ENERO</option>
+                        <option>FEBRERO</option>
+                    </select>
+                </div>
+
+
+                <div class="col-8">
+                    <div class="d-flex justify-content-start mb-4">
+
+                        <button type="button" data-toggle="modal" class="btn btn-info"><i class="fas fa-archive"></i> Ver Registro</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-6">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="searchbar">
+                        <input class="search_input" type="text" name="" placeholder="Buscar ........">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <table class="table table-sm table-striped table-responsive-sm">
+            <thead>
+                <tr class="bg-info text-light ">
+                    <th scope="col">#</th>
+                    <th scope="col">Codigo </th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Medidor</th>
+                    <th scope="col">Pendiente</th>
+                    <th scope="col">Deuda</th>
+                    <th scope="col"> Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>0063821</td>
+                    <td>MAMANI NANDO</td>
+                    <td>URB. MIRAFLORES MZ. B2 LT. 3B</td>
+                    <td>EA18-462011</td>
+                    <td>4</td>
+                    <td> 18.00</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>0063821</td>
+                    <td>MAMANI NANDO</td>
+                    <td>URB. MIRAFLORES MZ. B2 LT. 3B</td>
+                    <td>EA18-462011</td>
+                    <td>5</td>
+                    <td> 18.00</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

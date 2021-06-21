@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "PagosCliente";
+}
+
+<div id="modal_aside_right" class="modal fixed-right fade fuente " tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-aside " role="document">
+        <div class="modal-content">
+            <div class="modal-body mt-4 ">
+                <div class="row">
+                    <div class="col-sm-3 mb-3">
+                        <label>Mes </label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <label>Lectura Anterior </label>
+                        <input type="text" class="form-control">
+
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <label>Lectura Actual </label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button class="btn btn-success btn-sm" id="enviar" type="submit"><i class="fas fa-save"></i> Registrar</button>
+            </div>
+        </div>
+    </div> <!-- modal-bialog .// -->
+</div>
+
+
+
+<div id="modal_aside_right"  class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <h5>Historial de consumo</h5>
+        <hr style="border-style: dashed;" />
+        <div class="row col-8 text-center">
+            
+
+                <form class="form-inline" action="/action_page.php">
+                    <label for="number" class="mr-sm-2">CODIGO</label>
+                    <input type="number" class="form-control col-sm-3 mb-2" placeholder="006007" id="codigo">
+                    <label for="pwd" class="mr-sm-2">NOMBRE</label>
+                    <input type="text" class="form-control col-sm-6 mb-2" placeholder="MAMANI QUISPE NANDO" id="nombre">
+                    <label for="pwd" class="mr-sm-2">DIRECCION</label>
+                    <input type="text" class="form-control col-sm-10 mb-2" placeholder="URB. MARAVILLA MZ. A2 LT. 3" id="direccion">
+
+
+
+
+                </form>
+
+
+
+
+        </div>
+
+        <!--<form class="form-inline" action="/action_page.php">-->
+        <table class="table table-sm table-striped table-responsive-sm">
+            <thead>
+                <tr class="bg-info text-light ">
+                    <th scope="col">#</th>
+                    <th scope="col">Año </th>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col"> Año</th>
+                    <th scope="col">Mes </th>
+                    <th scope="col">Comprobante</th>
+                    <th scope="col"> Opciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2021</td>
+                    <td>Enero</td>
+                    <td>Agua y desague</td>
+                    <td>20.5</td>
+                    <td>20.5</td>
+                    <td>Pagado</td>
+                    <td>..</td>
+                    <td>2021</td>
+                    <td>Febrero</td>
+                    <td>Ver</td>
+
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2021</td>
+                    <td>Enero</td>
+                    <td>Agua y desague</td>
+                    <td>20.5</td>
+                    <td>20.5</td>
+                    <td>Pagado</td>
+                    <td>..</td>
+                    <td>2021</td>
+                    <td>Febrero</td>
+                    <td>Ver</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2021</td>
+                    <td>Enero</td>
+                    <td>Agua y desague</td>
+                    <td>20.5</td>
+                    <td>20.5</td>
+                    <td>Pagado</td>
+                    <td>..</td>
+                    <td>2021</td>
+                    <td>Febrero</td>
+                    <td>Ver</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2021</td>
+                    <td>Enero</td>
+                    <td>Agua y desague</td>
+                    <td>20.5</td>
+                    <td>20.5</td>
+                    <td>Pagado</td>
+                    <td>..</td>
+                    <td>2021</td>
+                    <td>Febrero</td>
+                    <td>Ver</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>2021</td>
+                    <td>Enero</td>
+                    <td>Agua y desague</td>
+                    <td>20.5</td>
+                    <td>20.5</td>
+                    <td>Falta</td>
+                    <td>..</td>
+                    <td>2021</td>
+                    <td>Febrero</td>
+                    <td>Ver</td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-primary text-white">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-success text-white">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger text-white">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

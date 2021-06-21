@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Content("~/Usuario/ListaUsuarios")',
+            success: function (res) {
+                console.log(res)
+            }
+        })
+    });
+
+</script>

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+@*<form action="@Url.Content("~/Login/Login")" method="post" class="login shadow-lg  bg-white rounded">
+        <img src="~/Img/logo.png" alt="" width="100px" height="100px" style="border-radius:15px;">
+        <div class="txtimput">
+            <i class="fas fa-user"></i>
+            <input type="text" class="" placeholder="Ingresar Usuario" id="user" name="user">
+        </div>
+        <div class="txtimput">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="" placeholder="Ingresar Contraseña" id="password" name="password">
+        </div>
+        <div>
+            <button type="submit" id="btnsiguiente" class="btn btn-sm btn-info w-100"><i class="fas fa-user"></i> Ingresar</button>
+        </div>
+        <div class="mt-2 ">
+            <label class="text-danger">@ViewBag.Error</label>
+        </div>
+
+    </form>*@
+
+<div class="container">
+    <div class="row justify-content-center pt-5 mt-5 m-1">
+        <div class="col-md-6 col-sm-8 col-xl-4 col-lg-5 formulario">
+            <form action="@Url.Content("~/Login/Login")" method="post">
+                <div class="form-group text-center pt-3">
+                    <h3 class="text-light">INICIAR SESIÓN</h3>
+                </div>
+                <img src="~/Img/dis_pichari.png" alt="" width="100px" height="100px" style="border-radius:15px;">
+                <div class="form-group mx-sm-4 pt-3">
+
+                    <input type="text" class="form-control" id="user" name="user" placeholder="Ingrese su Usuario">
+                </div>
+                <div class="form-group mx-sm-4 pb-3">
+
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su Contraseña">
+                </div>
+                <div class="form-group mx-sm-4 pb-2">
+                    <input type="submit" id="btnsiguiente" class="btn btn-block ingresar" value="Ingresar">
+                </div>
+                <div class="mt-2 ">
+                    <label class="text-danger">@ViewBag.Error</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

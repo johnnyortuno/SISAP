@@ -1,0 +1,155 @@
+﻿/*body {
+    background-image: url('/Img/Distant Mountain.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+
+.mt {
+    top: 90px;
+}
+
+.login {
+    border-radius: 20px;
+    padding: 17px;
+    width: 300px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(70deg, white, #949aa2 );
+}
+
+@media (max-width: 400px) {
+    .login, .login-btn {
+        width: 90%;
+    }
+}
+
+.txtimput {
+    width: 100%;
+    overflow: hidden;
+    font-size: 15px;
+    padding: 0px 0;
+    margin: 8px 0;
+    border-bottom: 1px solid #808080;
+}
+
+    .txtimput span {
+        color: #68778d;
+    }
+
+    .txtimput input {
+        border: none;
+        outline: none;
+        background: none;
+        color: #68778d;
+        margin: 10px;
+    }
+
+.btn-color {
+    background-color: #2aa9b6;
+}
+
+button {
+    padding: 2px 0;
+}
+
+img {
+    display: block;
+    margin: auto;
+    pointer-events: none;
+}
+
+.btn-ingresar {
+    font-size: 11px;
+}
+*/
+
+body {
+    background-image: url('/Img/DistantMountain.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.formulario {
+    background: rgba(0, 0, 0, .1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(26, 17, 17, 0.568);
+    color: white;
+}
+
+
+img {
+    display: block;
+    margin: auto;
+    pointer-events: none;
+}
+
+.form-control {
+    background: rgba(0, 0, 0, .3);
+    border-style: none;
+    transition: 0.5s ease-in;
+    outline: none;
+    box-shadow: none;
+}
+
+    .form-control:focus {
+        background: none;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: white;
+    }
+
+.ingresar {
+    background: #222A3F;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 700 !important;
+    color: white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
+    transition: 0.5s ease-in;
+}
+
+    .ingresar:hover {
+        color: white;
+    }
+
+.olvide {
+    color: white;
+    text-decoration-style: none;
+    text-decoration-line: none;
+}
+
+    .olvide:hover {
+        color: white;
+        text-decoration-style: none;
+        text-decoration-line: none;
+        cursor: pointer;
+    }
+
+.olvide1 {
+    color: white;
+    text-decoration-style: none;
+    text-decoration-line: none;
+    font-size: 20px;
+    font-weight: 700 !important;
+    /* border: 2px solid white; */
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .5);
+}
+
+    .olvide1:hover {
+        color: white;
+        text-decoration-style: none;
+        text-decoration-line: none;
+        cursor: pointer;
+    }

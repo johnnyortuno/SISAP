@@ -1,0 +1,334 @@
+﻿
+@{
+    ViewBag.Title = "Manzana";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalCenterTitle">Crear Manzana</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-sm-12 mb-2">
+                    <label>Urbanizacion</label>
+                    <select id="ddUrbanizacion" class="form-control">
+                    </select>
+                </div>
+                <div class="col-sm-12 mb-4">
+                    <label>Manzana </label>
+                    <input id="txtManzana" type="text" class="form-control" placeholder="">
+                    <input hidden id="txtManzanaId" type="text" class="form-control" placeholder="">
+                </div>
+
+            </div>
+            <br />
+            <div class="modal-footer p-1">
+                <label id="MSGvalidacion" class=" text-danger" style="display:none">Debe LLenar todos los campos</label>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cerrar</button>
+                <button style="display:none;" class="btn btn-success btn-sm" id="btnSave" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                <button style="display:none;" class="btn btn-warning btn-sm" id="btnUpdate" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Manzanas</i></h5>
+        </div>
+
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex justify-content-start mb-2">
+                    <button id="openModal" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(0)"><i class="fas fa-plus"></i> Registrar</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="searchbar">
+                        <input class="search_input" type="text" id="txtFilter" name="" placeholder="Buscar...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-sm table-striped table-responsive-sm" id="allGrilla">
+            <thead>
+                <tr class="bg-info text-light">
+                    <th scope="col">Código</th>
+                    <th scope="col">Urbanizacion</th>
+                    <th scope="col">Manzana</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        ListUrbanizacion();
+
+
+        $("#openModal").on('click', function () {
+            console.log("siii")
+            $("#MSGvalidacion").hide();
+            $("#btnSave").show();
+            $("#btnUpdate").hide();
+            Clean();
+        })
+
+
+        $("#btnSave").click(Save);
+        $("#btnUpdate").click(Update);
+
+        tabla = $('#allGrilla').DataTable({
+            "dom": 'Bfrtip',
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Common/ListarManzanaByNombre")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        NombreManzana: $("#txtFilter").val() == "" ? null : $("#txtFilter").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"ManzanaId" },
+                { "data": "NombreUrbanizacion" },
+                { "data":"NombreManzana" },
+                {
+                    "data": "id",  "render": function(data, type, row, meta) {
+                        return "<i class='text-warning far fa-edit mr-3' onClick='Edit(" + JSON.stringify(row) + ")'></i> </a>" +
+                            "<i class='text-danger fas fa-trash-alt mr-3' onClick='Delete(" + JSON.stringify(row) + ")'></i>"
+                            //"<i class='text-warning fas fa-lightbulb ' onClick='StatusUpdate(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+            ]
+        });
+
+        tabla.draw();
+
+        $("#txtFilter").bind("keyup change", function () {
+            tabla.draw();
+        })
+
+
+    });
+
+    function Save() {
+
+        if ($('#txtManzana').val() == "" || $('#ddUrbanizacion').val() == "") {
+            $("#MSGvalidacion").show();
+
+            return false;
+        }
+
+        var objManzana = {};
+        objManzana.NombreManzana = $("#txtManzana").val();
+        objManzana.UrbanizacionId = $("#ddUrbanizacion").val();
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Tu trabajo ha sido guardado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        $.ajax({
+
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Common/SaveManzana")',
+            dataType: "json",
+            data: JSON.stringify({
+                objManzana: objManzana
+            }),
+            success: function (resp) {
+                tabla.draw();
+            }
+        });
+        Clean();
+
+    }
+
+    function Edit(dCliente) {
+
+        $("#MSGvalidacion").hide();
+        $("#btnSave").hide();
+        $("#btnUpdate").show();
+        $("#exampleModalCenter").modal('show');
+
+        $("#ddUrbanizacion").val(dCliente.UrbanizacionId);
+        $("#txtManzana").val(dCliente.NombreManzana);
+        $("#txtManzanaId").val(dCliente.ManzanaId);
+
+    }
+
+    function Update() {
+        var objManzana = {};
+
+        objManzana.ManzanaId = $("#txtManzanaId").val();
+        objManzana.UrbanizacionId = $("#ddUrbanizacion").val();
+        objManzana.NombreManzana = $("#txtManzana").val();
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Tu trabajo ha sido Actualizado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        $.ajax({
+
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Common/updateManzana")',
+            dataType: "json",
+            data: JSON.stringify({
+                objManzana: objManzana
+            }),
+            success: function (resp) {
+                tabla.draw();
+            }
+        });
+        Clean();
+    }
+
+    @*function Delete(dCliente) {
+
+        Swal.fire({
+            title: '¿ Estas Seguroo ?',
+            text: "¡ Se eliminará este registro !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = { ManzanaId: dCliente.ManzanaId };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Content("~/Common/DeleteManzana")',
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    success: function () {
+                        tabla.draw();
+                    }
+                });
+                Swal.fire(
+                    'Eliminado!',
+                    'Manzana Eliminado.',
+                    'success'
+                )
+            }
+        })
+
+
+    }*@
+
+      const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+    })
+    function Delete(dCliente) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estas Seguro?',
+            text: "No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    var data = { ManzanaId: dCliente.ManzanaId };
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Content("~/Common/DeleteManzana")',
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    success: function () {
+                        tabla.draw();
+                    }
+                });
+                swalWithBootstrapButtons.fire(
+                    'Eliminado!',
+                    'Manzana a sido eliminado.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu archivo imaginario está seguro : )',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function ListUrbanizacion() {
+        var comboUrbanizacion = $("#ddUrbanizacion");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListarUrbanizacion")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboUrbanizacion.html('');
+                    comboUrbanizacion.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboUrbanizacion.append($("<option />").val(this.UrbanizacionId).text(this.NombreUrbanizacion));
+                    })
+                }
+            }
+        });
+    }
+
+    function Clean() {
+        $("#txtManzana").val("");
+        $("#txtManzanaId").val("");
+    }
+
+</script>

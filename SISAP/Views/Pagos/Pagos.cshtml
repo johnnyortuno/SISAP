@@ -1,0 +1,586 @@
+﻿
+@{
+    ViewBag.Title = "Pagos";
+}
+<!--PAGAR-->
+<div class="modal fixed-right fade fuente" id="modal_aside_right" tabindex="-1" role="dialog" aria-labelledby="EjemploModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside" role="document">
+        <div class="modal-content" id="form">
+            <div class="modal-body mt-4">
+                <div class="card-header p-1">
+                    <h5 class="text-center">Pagar Recibos</h5>
+                </div>
+                <div class="modal-body">
+
+                    <form class="mb-4">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Codigo</label>
+                                <input disabled type="text" id="txtCodigo" class="form-control" placeholder="">
+                                <input hidden type="text" id="txtClienteId" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Nombre</label>
+                                <input disabled type="text" id="txtNombre" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Direccion</label>
+                                <input disabled type="text" id="txtDireccion" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Servicio</label>
+                                <input disabled type="text" id="txtServicio" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Tarifa</label>
+                                <input disabled type="text" id="txtTarifa" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Medidor</label>
+                                <input disabled type="text" id="txtMedidor" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <table class="mt-4 table table-sm table-striped table-responsive-sm" id="allGrilla1">
+                        <thead>
+                            <tr class="bg-info text-light ">
+                                <th scope="col">Año </th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Concepto</th>
+                                <th scope="col">Servicio</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Total a Pagar</th>
+                                <th class="text-center" scope="col"> Pagar</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn-sm btn btn-danger" data-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalPay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body mt-2">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Nombre</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input disabled type="text" id="txtClienteNombre" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <label>Observaciones</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input hidden type="text" id="txtClienteIdPay" class="form-control">
+                        <input hidden type="text" id="txtAnnioPago" class="form-control">
+                        <input hidden type="text" id="txtMesPago" class="form-control">
+                        <input hidden type="text" id="txtFacturacionId" class="form-control">
+                        <textarea class="form-control" id="txtObservaciones" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <label>Total a Pagar</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input disabled type="text" id="txtTotalPagar" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-danger btn-sm" id="btnModalUpdateLecturaDismiss" data-dismiss="modal">Cerrar</button>
+                <button style="display:none;" class="btn btn-success btn-sm" id="btnPagar" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Pagar</button>
+                <button disabled style="display:none;" class="btn btn-warning btn-sm" id="btnPagado" data-dismiss="modal" type="submit"><i class="fas fa-save"></i> Pagado</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Historial Recibo-->
+<div class="modal fixed-right fade fuente" id="modal_aside_right1" tabindex="-1" role="dialog" aria-labelledby="EjemploModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside" role="document">
+        <div class="modal-content" id="form">
+            <div class="modal-body mt-4">
+                <div class="card-header p-1">
+                    <h5 class="text-center">Hisorial Recibos</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <form class="mb-4">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Codigo</label>
+                                <input disabled type="text" id="txtCodigoH" class="form-control" placeholder="">
+                                <input hidden type="text" id="txtClienteIdH" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Nombre</label>
+                                <input disabled type="text" id="txtNombreH" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Direccion</label>
+                                <input disabled type="text" id="txtDireccionH" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="email"> Servicio</label>
+                                <input disabled type="text" id="txtServicioH" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Tarifa</label>
+                                <input disabled type="text" id="txtTarifaH" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="email">Medidor</label>
+                                <input disabled type="text" id="txtMedidorH" class="form-control" placeholder="">
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <table class="mt-4 table table-sm table-striped table-responsive-sm" id="allGrilla2">
+                        <thead>
+                            <tr class="bg-info text-light ">
+                                <th scope="col">Año </th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Concepto</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Observaciones</th>
+                                <th scope="col">Fecha de Pago</th>
+                                <th class="text-center" scope="col">Archivos</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn-sm btn btn-danger" data-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Historial Recibo.// -->
+
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Facturación</i></h5>
+        </div>
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="row  col-6">
+
+                <div class="col-sm-4 mb-3 ">
+                    <label>Ruta</label>
+                    <select id="ddUrbanizacion" class="form-control form-control-sm ">
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="d-flex justify-content-end mt-2">
+                    <div class="searchbar mr-4 mt-2">
+                        <input class="search_input" type="text" id="txtFilter" name="" placeholder="Buscar...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table table-sm table-striped table-responsive-sm" id="allGrilla">
+            <thead>
+                <tr class="bg-info text-light ">
+                    <th scope="col">Codigo </th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Medidor</th>
+                    <th scope="col"> Opciones</th>
+                </tr>
+            </thead>
+        </table>
+        <!--
+        <table class="table table-sm table-striped table-responsive-sm">
+            <thead>
+                <tr class="bg-info text-light ">
+                    <th scope="col">Codigo </th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col"> Opciones</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <tr>
+                    <td>0063822</td>
+                    <td>MAMANI NANDO</td>
+                    <td>URB. MIRAFLORES MZ. B2 LT. 3B</td>
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#modal_aside_right" class="btn btn-primary text-white"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#modal_aside_right1" class="btn btn-success text-white"><i class="fas fa-list-alt"></i></button>
+                            </div>
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+            -->
+    </div>
+</div>
+
+<script>
+    var tabla;
+    var tabla1;
+    var tabla2;
+    $(document).ready(function () {
+
+        $("#ddUrbanizacion").bind("keyup change", function () {
+
+            tabla.draw();
+        });
+
+        ListUrbanizacion();
+
+        ListMain();
+
+        $("#btnModalUpdateLecturaDismiss").on('click', function () {
+            $("#modal_aside_right").modal('show');
+
+        });
+
+        $("#btnPagar").click(PayFinal);
+    });
+
+    function ListMain() {
+        tabla = $('#allGrilla').DataTable({
+            "destroy": true,
+            "dom": 'Bfrtip',
+            //"bPaginate": false,
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Pagos/ListMain")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        UrbanizacionId: $("#ddUrbanizacion").val() == "" ? null : $("#ddUrbanizacion").val(),
+                        FilterNombre: $("#txtFilter").val() == "" ? null : $("#txtFilter").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"CodigoCliente" },
+                { "data":"NombreCompleto" },
+                { "data":"DireccionStr" },
+                { "data":"NumeroMedidor" },
+                {
+                    "data": "id", "render": function (data, type, row, meta) {
+                        return "<i class='text-center text-success fas fa-shopping-cart mr-3' onClick='Pay(" + JSON.stringify(row) + ")'></i> </a>"+
+                        "<i class='text-info fas fa-list  mr-3' onClick='PayList(" + JSON.stringify(row) + ")'></i>"
+                        //"<i class='text-danger fas fa-trash-alt ' onClick='Delete(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+            ]
+        });
+
+        tabla.draw();
+        $("#txtFilter").bind("keyup change", function () {
+            tabla.draw();
+        })
+
+    }
+
+    function Pay(dCliente) {
+
+        $("#modal_aside_right").modal('show');
+
+        $("#txtClienteId").val(dCliente.ClienteId);
+        $("#txtCodigo").val(dCliente.CodigoCliente);
+        $("#txtNombre").val(dCliente.NombreCompleto);
+        $("#txtDireccion").val(dCliente.DireccionStr);
+        $("#txtServicio").val(dCliente.ServicioNombre);
+        $("#txtTarifa").val(dCliente.TipoCategoria);
+        $("#txtMedidor").val(dCliente.NumeroMedidor);
+        ListPayDetail();
+    }
+
+    function ListPayDetail() {
+
+        tabla1 = $('#allGrilla1').DataTable({
+            "destroy": true,
+            "dom": 'Bfrtip',
+            //"bPaginate": false,
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Pagos/ListPayByCliente")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        ClienteId: $("#txtClienteId").val() == "" ? null : $("#txtClienteId").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"Annio" },
+                { "data": "Mes" },
+                { "data": "TipoCategoria" },
+                { "data": "ServicioNombre" },
+                { "data": "EstadoPagoDesc", "sClass": "font-weight-bold "  },
+                { "data": "TotalPagar", "sClass": "font-weight-bold" },
+                {
+                    "data": "id", "sClass": "ml-4" ,"render": function (data, type, row, meta) {
+                        return "<i class='ml-5 text-center text-success fas fa-credit-card mr-3' onClick='CajaPay(" + JSON.stringify(row) + ")'></i> </a>"
+                        // "<i class='text-danger fas fa-trash-alt mr-3' onClick='Delete(" + JSON.stringify(row) + ")'></i>"
+                        //"<i class='text-warning fas fa-lightbulb ' onClick='StatusUpdate(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+            ]
+        });
+
+        tabla1.draw();
+        /*$("#txtFilter").bind("keyup change", function () {
+            tabla2.draw();
+        })*/
+
+    }
+
+    function CajaPay(dCliente) {
+
+        $("#modalPay").modal('show');
+        $("#modal_aside_right").modal('hide');
+
+        $("#txtClienteNombre").val(dCliente.NombreCompleto);
+        $("#txtClienteIdPay").val(dCliente.ClienteId);
+        $("#txtTotalPagar").val(dCliente.Total);
+        $("#txtAnnioPago").val(dCliente.Annio);
+        $("#txtMesPago").val(dCliente.Mes);
+        $("#txtFacturacionId").val(dCliente.FacturacionId);
+        $("#txtObservaciones").val(dCliente.ObservacionesPago);
+        console.log(dCliente.EstadoPagado);
+        var value = dCliente.EstadoPagado;
+
+        if (value == null) {
+            $("#btnPagado").hide();
+            $("#btnPagar").show();
+
+        }
+        else {
+
+            $("#btnPagado").show();
+            $("#btnPagar").hide();
+        }
+
+    }
+
+    function PayFinal() {
+
+        var objPago = {};
+        objPago.ClienteId = $("#txtClienteIdPay").val();
+        objPago.Total = $("#txtTotalPagar").val();
+        objPago.PeriodoAnnio = $("#txtAnnioPago").val();
+        objPago.PeriodoMes = $("#txtMesPago").val();
+        objPago.Observaciones = $("#txtObservaciones").val();
+        objPago.FacturacionId = $("#txtFacturacionId").val();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '',
+
+            text: "¿Esta ud seguro de realizar el pago?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.open('/Pagos/ReportePago?id=' + 1 + '&idCliente=' + objPago.ClienteId+'');
+            } else if (
+                $("#modalPay").modal('show'),
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+
+            }
+        })
+
+
+    }
+
+    function PayList(dCliente) {
+
+        $("#modal_aside_right1").modal('show');
+
+        $("#txtClienteIdH").val(dCliente.ClienteId);
+        $("#txtCodigoH").val(dCliente.CodigoCliente);
+        $("#txtNombreH").val(dCliente.NombreCompleto);
+        $("#txtDireccionH").val(dCliente.DireccionStr);
+        $("#txtServicioH").val(dCliente.ServicioNombre);
+        $("#txtTarifaH").val(dCliente.TipoCategoria);
+        $("#txtMedidorH").val(dCliente.NumeroMedidor);
+        ListPay();
+    }
+
+    function ListPay() {
+        tabla2 = $('#allGrilla2').DataTable({
+            "destroy": true,
+            "dom": 'Bfrtip',
+            //"bPaginate": false,
+            "lengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+            "searching": false,
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            },
+            "drawCallback": function () {
+                $('.page-link').addClass('btn-sm  border-0')
+            },
+
+            "serverSide": true,
+            "processing": true,
+            "orderable": false,
+            "ajax": {
+                "url": '@Url.Content("~/Pagos/Pay")',
+                "type": 'POST',
+                "data": function (d) {
+                    return $.extend({}, d, {
+                        ClienteId: $("#txtClienteIdH").val() == "" ? null : $("#txtClienteIdH").val(),
+                    });
+                },
+                "dataSrc": "data",
+                "responsivePriority": 1,
+                //"pageLength": 10
+            },
+
+            "columns": [
+                { "data":"PeriodoAnnio" },
+                { "data": "PeriodoMes" },
+                { "data": "TipoCategoria" },
+                { "data": "TotalPagar", "sClass": "font-weight-bold" },
+                { "data": "EstadoStr", "sClass": "font-weight-bold " },
+                { "data": "Observaciones" },
+                { "data": "FechaPagoStr" },
+                {
+                    "data": "id", "sClass": "ml-4" ,"render": function (data, type, row, meta) {
+                        return "<i class='ml-5 text-center text-success fas fa-file mr-3' onClick='ViewFile(" + JSON.stringify(row) + ")'></i> </a>"
+                        // "<i class='text-danger fas fa-trash-alt mr-3' onClick='Delete(" + JSON.stringify(row) + ")'></i>"
+                        //"<i class='text-warning fas fa-lightbulb ' onClick='StatusUpdate(" + JSON.stringify(row) + ")'></i>"
+                    }
+                },
+            ]
+        });
+
+        tabla2.draw();
+        /*$("#txtFilter").bind("keyup change", function () {
+            tabla2.draw();
+        })*/
+    }
+
+    function Delete() {
+    }
+
+    function ListUrbanizacion() {
+        var comboUrbanizacion = $("#ddUrbanizacion");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListarUrbanizacion")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboUrbanizacion.html('');
+                    comboUrbanizacion.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboUrbanizacion.append($("<option />").val(this.UrbanizacionId).text(this.NombreUrbanizacion));
+                    })
+                }
+            }
+        });
+    }
+    function ClenaCombo() {
+        $("#ddUrbanizacion").val('');
+    }
+    function Clena() {
+        $("#txtClienteId").val("");
+        $("#txtCodigo").val("");
+        $("#txtNombre").val("");
+        $("#txtDireccion").val("");
+        $("#txtServicio").val("");
+        $("#txtTarifa").val("");
+        $("#txtMedidor").val("");
+        $("#txtObservaciones").val("");
+
+    }
+
+</script>

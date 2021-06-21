@@ -1,0 +1,361 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Reportes";
+}
+<!--Cards //-->
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Reportes</i></h5>
+        </div>
+        <hr style="border-style: dashed;" />
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="row  col-6">
+                    <div class="col-sm-4 mb-3">
+                        <label>Año</label>
+                        <select id="ddAnnio" class="form-control form-control-sm">
+                        </select>
+                    </div>
+                    <div class="col-sm-4 mb-3 ">
+                        <label>Mes</label>
+                        <select id="ddMes" class="form-control form-control-sm">
+                        </select>
+                    </div>
+                    <div class="col-sm-4 mb-3 ">
+                        <label>Urbanizacion</label>
+                        <select id="ddUrbanizacion" class="form-control form-control-sm ">
+                        </select>
+                    </div>
+                    <div hidden class="col-sm-4 mb-3 ">
+                        <label>Urbanizacion</label>
+                        <input class="form-control form-control-sm" type="text" id="txtUrbanizacion" name="" disabled>
+                    </div>
+                </div>
+                <div class="col-6" hidden>
+                    <div class="d-flex justify-content-end mt-2">
+                        <div class="searchbar mr-4 mt-2">
+                            <input class="search_input" type="text" id="txtFilter" name="" placeholder="Buscar...">
+                            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                        </div>
+                        <label id="MSGvalidacion" class=" text-danger mt-4 mr-3" style="display:none">Debe seleccionar los campos de búsqueda</label>
+                        <button hidden type="button" id="btnBuscarClienteLectura" class="btn btn-success btn-sm mt-2 calcularOperaciones">Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Heading -->
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Ingresos Mensuales
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="txtIngresosMensuales"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Annual) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Ingresos Anuales
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="txtIngresosAnuales"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LECTURAS -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Lecturas Procesadas
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="txtLProcesadas"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-sort-amount-up fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Deudas por Ruta -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Deudas por ruta
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="txtDeudaRuta"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="~/Reportes/ReportesDeudas"><i class="fas fa-credit-card fa-2x text-gray-300"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deudas por Distrito-->
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Deudas por distrito
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="txtDeudaDistrito"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="~/Reportes/ReportesDeudasDistrito"><i class="fas fa-credit-card fa-2x text-gray-300"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#ddAnnio").change(function () {
+            ListaddMeses();
+        });
+
+        ListarAnnio();
+
+        ListUrbanizacion();
+
+        $(document).on('change', '#ddAnnio, #ddMes', function () {
+
+            if ($("#ddAnnio").val() > 0 && $("#ddMes").val() > 0) {
+
+                CantidadLecturasP();
+                IngresosMensuales();
+                IngresosAnuales();
+
+            }
+        });
+        $(document).on('change', function () {
+
+            if ($("#ddAnnio").val() > 0 ) {
+
+                IngresosAnuales();
+                DeudaDistrito()
+
+            }
+        });
+        $(document).on('change', '#ddAnnio, #ddMes, #ddUrbanizacion', function () {
+
+            if ($("#ddAnnio").val() > 0 && $("#ddMes").val() > 0 && $("#ddUrbanizacion").val() > 0) {
+                DeudaRuta();
+            }
+        });
+    });
+
+    function CantidadLecturasP() {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Reportes/AllLecturas")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val(), Mes: $("#ddMes").val() }),
+            async: false,
+            success: function (resp) {
+                if (resp.respuesta != null) {
+                    $("#txtLProcesadas").text(resp.respuesta + "  M3")
+                } else {
+                    $("#txtLProcesadas").text("0 M3")
+
+                }
+            }
+        });
+    }
+    function DeudaDistrito() {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Reportes/DeudaDistrito")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val() }),
+            async: false,
+            success: function (resp) {
+                if (resp.respuesta != null) {
+                    $("#txtDeudaDistrito").text("S/. " + resp.respuesta)
+                } else {
+                    $("#txtDeudaDistrito").text("S/. 0")
+
+                }
+            }
+        });
+    }
+    function DeudaRuta() {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Reportes/DeudaRuta")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val(), Mes: $("#ddMes").val(), UrbanizacionId: $("#ddUrbanizacion").val() }),
+            async: false,
+            success: function (resp) {
+                if (resp.respuesta != null) {
+                    $("#txtDeudaRuta").text("S/. " + resp.respuesta)
+                } else {
+                    $("#txtDeudaRuta").text("S/. 0")
+
+                }
+            }
+        });
+    }
+    function IngresosAnuales() {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Reportes/IngresosAnuales")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val()}),
+            async: false,
+            success: function (resp) {
+                if (resp.respuesta != null) {
+                    $("#txtIngresosAnuales").text("S/. " + resp.respuesta)
+                } else {
+                    $("#txtIngresosAnuales").text("S/. 0")
+
+                }
+                
+            }
+        });
+    }
+    function IngresosMensuales() {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Reportes/IngresosMensuales")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val(), Mes: $("#ddMes").val() }),
+            async: false,
+            success: function (resp) {
+                if (resp.respuesta != null) {
+                    $("#txtIngresosMensuales").text("S/. " + resp.respuesta)
+
+                } else {
+                    $("#txtIngresosMensuales").text("S/. 0")
+
+                }
+            }
+        });
+    }
+    function ListarAnnio() {
+        var comboAnnio = $("#ddAnnio");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListAnnio")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboAnnio.html('');
+                    comboAnnio.append($("<option />").val("").text('--Seleccione--'));
+                    $.each(data, function () {
+                        comboAnnio.append($("<option />").val(this.Value).text(this.Text));
+                    })
+                }
+            }
+        });
+    }
+
+    function ListaddMeses() {
+        var comboMes = $("#ddMes");
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Content("~/Common/ListMes")',
+            dataType: "json",
+            data: JSON.stringify({ Annio: $("#ddAnnio").val() }),
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboMes.html('');
+                    comboMes.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboMes.append($("<option />").val(this.Value).text(this.Text));
+                    });
+
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+    }
+
+    function ListUrbanizacion() {
+        var comboUrbanizacion = $("#ddUrbanizacion");
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Content("~/Common/ListarUrbanizacion")',
+            async: false,
+            success: function (dataObject) {
+                var data = dataObject;
+                if (data != null) {
+                    comboUrbanizacion.html('');
+                    comboUrbanizacion.append($("<option />").val("").text('--Seleccione--'));
+
+                    $.each(data, function () {
+                        comboUrbanizacion.append($("<option />").val(this.UrbanizacionId).text(this.NombreUrbanizacion));
+                    })
+                }
+            }
+        });
+    }
+</script>
+

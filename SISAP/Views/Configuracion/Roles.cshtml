@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "Roles";
+}
+
+<div class="modal fade" id="modal_aside_right" tabindex="-1" role="dialog" aria-labelledby="EjemploModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card-header">
+                <h4 class="text-center">Registrar Rol</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label for="slug">Descripcion</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Estado</label>
+                        <label asp-area="Cursos" asp-controller="Cursos" asp-action="UpdateEstado" method="post">
+
+                            <input type="submit" class="btn-sm btn-success text-light" value="Activo" />
+
+                        </label>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-success">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal.// -->
+<!--Modal editar urbanizacion-->
+
+
+
+<div class="modal fixed-right fade fuente" id="modal_aside_right1" tabindex="-1" role="dialog" aria-labelledby="EjemploModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="card-header">
+                <h4 class="text-center">Editar Rol</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="slug">Descripcion</label>
+                        <input type="text" class="form-control" placeholder="Nando">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Estado</label>
+                        <label asp-area="Cursos" asp-controller="Cursos" asp-action="UpdateEstado" method="post">
+
+                            <input type="submit" class="btn-sm btn-success text-light" value="Activo" />
+
+                        </label>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-success">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal editar Manzana ////-->
+
+
+<div class="card border-0 ml-4 mt-4 margin-l mb-3 ">
+    <div class="card-body fuente">
+        <div class=" card-header bg-dark text-white">
+            <h5><i class="fas fa-table"> Roles</i></h5>
+        </div>
+
+        <hr style="border-style: dashed;" />
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex justify-content-start mb-2">
+                    <button type="button" data-toggle="modal" data-target="#modal_aside_right" class="btn btn-info"><i class="fas fa-plus"></i> Registrar</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="searchbar">
+                        <input class="search_input" type="text" name="" placeholder="Buscar...">
+                        <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-sm table-striped table-responsive-sm">
+            <thead>
+                <tr class="bg-info text-light ">
+                    <th scope="col">#</th>
+                    <th scope="col">Descripcion </th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Administrador</td>
+                    <td>
+                        <form asp-area="Cursos" asp-controller="Cursos" asp-action="UpdateEstado" method="post">
+
+
+                            <input type="submit" class="btn-sm btn-success text-light" value="Activo" />
+
+
+
+                        </form>
+                    </td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#modal_aside_right1" class="btn btn-info text-white"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Administrador</td>
+                    <td>
+                        <form asp-area="Cursos" asp-controller="Cursos" asp-action="UpdateEstado" method="post">
+
+
+                            <input type="submit" class="btn-sm btn-success text-light" value="Activo" />
+
+
+
+                        </form>
+                    </td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#modal_aside_right1" class="btn btn-info text-white"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Administrador</td>
+                    <td>
+                        <form asp-area="Cursos" asp-controller="Cursos" asp-action="UpdateEstado" method="post">
+
+
+                            <input type="submit" class="btn-sm btn-success text-light" value="Activo" />
+
+
+
+                        </form>
+                    </td>
+
+                    <td style="width:80px">
+                        <div class="btn-group" role="group">
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#modal_aside_right1" class="btn btn-info text-white"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="d-flex justify-content-start mb-2">
+                                <button type="button" data-toggle="modal" data-target="#" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

@@ -1,0 +1,20 @@
+﻿html {
+    height: 100%;
+}
+body {
+     display: flex;
+     flex-wrap: wrap;
+     height: 100%;
+     background: #f0f0f0;
+     min-height: 100vh;
+}
+footer{
+   align-self: flex-end;
+   padding: 24px;
+   line-height: 1;
+   align-content: end;
+   width: 100%
+}
+.card-header{
+    height: 42px;
+}
