@@ -444,7 +444,6 @@
         objPago.PeriodoMes = $("#txtMesPago").val();
         objPago.Observaciones = $("#txtObservaciones").val();
         objPago.FacturacionId = $("#txtFacturacionId").val();
-
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -452,10 +451,8 @@
             },
             buttonsStyling: false
         })
-
         swalWithBootstrapButtons.fire({
             title: '',
-
             text: "¿Esta ud seguro de realizar el pago?",
             icon: 'warning',
             showCancelButton: true,
@@ -463,15 +460,40 @@
             cancelButtonText: 'Cancelar',
             reverseButtons: true
         }).then((result) => {
-            if (result.isConfirmed) {
-                window.open('/Pagos/ReportePago?id=' + 1 + '&idCliente=' + objPago.ClienteId+'');
-            } else if (
-                $("#modalPay").modal('show'),
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
+             $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/Pagos/Pagar")',
+                    data: JSON.stringify({
+                        objPago: objPago
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (resp) {
+                        if (resp.mensaje == "success") {
+                            $("#modal_aside_right").modal('show');
+                            tabla1.draw();
 
-            }
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Pago realizado con éxito !'
+                            })
+                            window.open('/Pagos/ReportePago?id=' + 1 + '&idCliente=' + objPago.ClienteId + '');
+                        }
+                    }
+                });
+
         })
 
 
