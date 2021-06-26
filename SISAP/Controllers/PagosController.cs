@@ -53,9 +53,9 @@ namespace SISAP.Controllers
         }
 
 
-   
 
-        public ActionResult ReportePago(int id, int idCliente)
+
+        public ActionResult ReportePago(int id, int idCliente, int[] idPago)
         {
             #region "Generacion del Reporte"
 
@@ -63,6 +63,12 @@ namespace SISAP.Controllers
             rd.Load(Path.Combine(Server.MapPath("~/ReportesCR"), "rptPagos.rpt"));
             rd.SetParameterValue("@usuarioId", id);
             rd.SetParameterValue("@clienteId", idCliente);
+            rd.SetParameterValue("@pagoId", idPago);
+            //string query = "and f.PagoId";
+            //foreach (int idValor in idPago)
+            //{
+
+            //}
             Response.Buffer = false;
             Response.ClearContent();
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
@@ -76,8 +82,9 @@ namespace SISAP.Controllers
             objPago.EstadoPago = (int)EstadoPay.Pagado;
             objPago.EstadoPagoDesc = "Pagado";
             _pagoService.Pagar(objPago);
-
-            return Json(new { mensaje = "success" }, JsonRequestBehavior.AllowGet);
+            // El resultado debera devolver un array que contenga todos los pagos realizados 
+            // ejemplo [543] ejemplo2 [55,33,22,55] , etc 
+            return Json(new { mensaje = objPago.PagoId }, JsonRequestBehavior.AllowGet);
         }
 
  
