@@ -468,8 +468,9 @@
                     }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (resp) {
-                        if (resp.mensaje > 0) {
+                 success: function (resp) {
+                     
+                     if (resp.mensaje.length > 0) {
                             $("#modal_aside_right").modal('show');
                             tabla1.draw();
 
@@ -489,7 +490,8 @@
                                 icon: 'success',
                                 title: 'Pago realizado con éxito !'
                             })
-                            window.open('/Pagos/ReportePago?id=' + 1 + '&idCliente=' + objPago.ClienteId + ' &idPago=' + resp.mensaje);
+                
+                         window.open('/Pagos/ReportePago?id=' + 1 + '&idCliente=' + objPago.ClienteId + ' &idPago=' + resp.mensaje.join("|"));
                         }
                     }
                 });

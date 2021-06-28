@@ -16,14 +16,14 @@ namespace SISAP.ReportesCR {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptPagos : ReportClass {
+    public class rptFacturas : ReportClass {
         
-        public rptPagos() {
+        public rptFacturas() {
         }
         
         public override string ResourceName {
             get {
-                return "rptPagos.rpt";
+                return "rptFacturas.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace SISAP.ReportesCR {
         
         public override string FullResourceName {
             get {
-                return "SISAP.ReportesCR.rptPagos.rpt";
+                return "SISAP.ReportesCR.rptFacturas.rpt";
             }
             set {
                 // Do nothing
@@ -106,17 +106,25 @@ namespace SISAP.ReportesCR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_pagoId {
+        public CrystalDecisions.Shared.IParameterField Parameter_mes {
             get {
                 return this.DataDefinition.ParameterFields[2];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_annio {
+            get {
+                return this.DataDefinition.ParameterFields[3];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptPagos : Component, ICachedReport {
+    public class CachedrptFacturas : Component, ICachedReport {
         
-        public CachedrptPagos() {
+        public CachedrptFacturas() {
         }
         
         [Browsable(false)]
@@ -153,7 +161,7 @@ namespace SISAP.ReportesCR {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptPagos rpt = new rptPagos();
+            rptFacturas rpt = new rptFacturas();
             rpt.Site = this.Site;
             return rpt;
         }
