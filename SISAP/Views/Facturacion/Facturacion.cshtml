@@ -211,7 +211,16 @@
         })
     }
 
-    function Print() {
+    function Print(row) {
+        console.log(row);
+
+        console.log( row["CodigoCliente"]);
+        console.log( row["Mes"]);
+        console.log( row["Annio"]);
+        
+        window.open('/Facturacion/ReporteFactura?idCliente=' + row["CodigoCliente"] + '&mes=' + row["Mes"] + ' &annio=' + row["Annio"]);
+
+
 
     }
     function Read(dCliente) {
